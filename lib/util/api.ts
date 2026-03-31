@@ -51,8 +51,8 @@ console.log(
 );
 console.log(JSON.stringify(process.env, null, 2));
 
-const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS as string;
-const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT as string;
+const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS!;
+const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT!;
 // const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
 
 const ETCHER_TERMINATE_TIMEOUT: number = parseInt(

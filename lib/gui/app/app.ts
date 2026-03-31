@@ -141,11 +141,11 @@ spawnChildAndConnect({
 		requestMetadata = async (params: any): Promise<SourceMetadata> => {
 			emit('sourceMetadata', JSON.stringify(params));
 
-			return new Promise((resolve) =>
+			return new Promise((resolve) => {
 				registerHandler('sourceMetadata', (data: any) => {
 					resolve(JSON.parse(data));
-				}),
-			);
+				});
+			});
 		};
 
 		registerHandler('drives', (data: any) => {

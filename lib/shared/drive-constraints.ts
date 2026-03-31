@@ -110,13 +110,13 @@ export function isDriveLargeEnough(
 export function isDriveValid(
 	drive: DrivelistDrive,
 	image?: SourceMetadata,
-	write: boolean = true,
+	write = true,
 ): boolean {
 	return (
 		!write ||
 		(!drive.disabled &&
 			isDriveLargeEnough(drive, image) &&
-			!isSourceDrive(drive, image as SourceMetadata))
+			!isSourceDrive(drive, image))
 	);
 }
 
@@ -223,7 +223,7 @@ export function getDriveImageCompatibilityStatuses(
 			statusList.push(statuses.large);
 		}
 
-		if (isSourceDrive(drive, image as SourceMetadata)) {
+		if (isSourceDrive(drive, image)) {
 			statusList.push(statuses.containsImage);
 		}
 

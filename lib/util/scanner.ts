@@ -173,7 +173,9 @@ const COMPUTE_MODULE_DESCRIPTIONS: Dictionary<string> = {
 
 const startScanning = () => {
 	driveScanner.on('attach', (drive) => addDrive(drive));
-	driveScanner.on('detach', (drive) => removeDrive(drive));
+	driveScanner.on('detach', (drive) => {
+		removeDrive(drive);
+	});
 	driveScanner.start();
 };
 

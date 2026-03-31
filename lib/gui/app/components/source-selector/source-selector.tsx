@@ -188,9 +188,9 @@ const URLSelector = ({
 						value={imageURL}
 						placeholder={i18next.t('source.enterValidURL')}
 						type="text"
-						onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-							setImageURL(evt.target.value)
-						}
+						onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
+							setImageURL(evt.target.value);
+						}}
 					/>
 					<Link
 						mt={15}
@@ -221,17 +221,17 @@ const URLSelector = ({
 								value={username}
 								placeholder={i18next.t('source.username')}
 								type="text"
-								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-									setUsername(evt.target.value)
-								}
+								onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
+									setUsername(evt.target.value);
+								}}
 							/>
 							<Input
 								value={password}
 								placeholder={i18next.t('source.password')}
 								type="password"
-								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-									setPassword(evt.target.value)
-								}
+								onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
+									setPassword(evt.target.value);
+								}}
 							/>
 						</React.Fragment>
 					)}
@@ -277,9 +277,9 @@ const FlowSelector = styled(
 		<StepButton
 			plain={!props.primary}
 			primary={props.primary}
-			onClick={(evt: React.MouseEvent<Element, MouseEvent>) =>
-				flow.onClick(evt)
-			}
+			onClick={(evt: React.MouseEvent<Element>) => {
+				flow.onClick(evt);
+			}}
 			icon={flow.icon}
 			{...props}
 		>
@@ -599,12 +599,12 @@ export class SourceSelector extends React.Component<
 					flexDirection="column"
 					alignItems="center"
 					onDrop={(evt: React.DragEvent<HTMLDivElement>) => this.onDrop(evt)}
-					onDragEnter={(evt: React.DragEvent<HTMLDivElement>) =>
-						this.onDragEnter(evt)
-					}
-					onDragOver={(evt: React.DragEvent<HTMLDivElement>) =>
-						this.onDragOver(evt)
-					}
+					onDragEnter={(evt: React.DragEvent<HTMLDivElement>) => {
+						this.onDragEnter(evt);
+					}}
+					onDragOver={(evt: React.DragEvent<HTMLDivElement>) => {
+						this.onDragOver(evt);
+					}}
 				>
 					<SVGIcon
 						contents={imageLogo}
@@ -618,7 +618,9 @@ export class SourceSelector extends React.Component<
 						<>
 							<StepNameButton
 								plain
-								onClick={() => this.showSelectedImageDetails()}
+								onClick={() => {
+									this.showSelectedImageDetails();
+								}}
 								tooltip={imageName || imageBasename}
 							>
 								<Spinner show={imageLoading}>
@@ -629,7 +631,9 @@ export class SourceSelector extends React.Component<
 								<ChangeButton
 									plain
 									mb={14}
-									onClick={() => this.reselectSource()}
+									onClick={() => {
+										this.reselectSource();
+									}}
 								>
 									{i18next.t('cancel')}
 								</ChangeButton>
@@ -649,28 +653,44 @@ export class SourceSelector extends React.Component<
 									label: i18next.t('source.fromFile'),
 									icon: <FileSvg height="1em" fill="currentColor" />,
 								}}
-								onMouseEnter={() => this.setDefaultFlowActive(false)}
-								onMouseLeave={() => this.setDefaultFlowActive(true)}
+								onMouseEnter={() => {
+									this.setDefaultFlowActive(false);
+								}}
+								onMouseLeave={() => {
+									this.setDefaultFlowActive(true);
+								}}
 							/>
 							<FlowSelector
 								key="Flash from URL"
 								flow={{
-									onClick: () => this.openURLSelector(),
+									onClick: () => {
+										this.openURLSelector();
+									},
 									label: i18next.t('source.fromURL'),
 									icon: <LinkSvg height="1em" fill="currentColor" />,
 								}}
-								onMouseEnter={() => this.setDefaultFlowActive(false)}
-								onMouseLeave={() => this.setDefaultFlowActive(true)}
+								onMouseEnter={() => {
+									this.setDefaultFlowActive(false);
+								}}
+								onMouseLeave={() => {
+									this.setDefaultFlowActive(true);
+								}}
 							/>
 							<FlowSelector
 								key="Clone drive"
 								flow={{
-									onClick: () => this.openDriveSelector(),
+									onClick: () => {
+										this.openDriveSelector();
+									},
 									label: i18next.t('source.clone'),
 									icon: <CopySvg height="1em" fill="currentColor" />,
 								}}
-								onMouseEnter={() => this.setDefaultFlowActive(false)}
-								onMouseLeave={() => this.setDefaultFlowActive(true)}
+								onMouseEnter={() => {
+									this.setDefaultFlowActive(false);
+								}}
+								onMouseLeave={() => {
+									this.setDefaultFlowActive(true);
+								}}
 							/>
 						</>
 					)}
@@ -766,13 +786,16 @@ export class SourceSelector extends React.Component<
 							}
 							this.closeModal();
 						}}
-						done={() => this.closeModal()}
+						done={() => {
+							this.closeModal();
+						}}
 						onSelect={(drive) => {
 							if (drive) {
 								if (
 									selectionState.getImage()?.drive?.device === drive?.device
 								) {
-									return selectionState.deselectImage();
+									selectionState.deselectImage();
+									return;
 								}
 								this.selectSource(drive, 'BlockDevice');
 							}

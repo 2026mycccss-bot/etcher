@@ -170,7 +170,8 @@ export const TargetSelector = ({
 								(selectedDrive) => selectedDrive.device === drive.device,
 							)
 						) {
-							return deselectDrive(drive.device);
+							deselectDrive(drive.device);
+							return;
 						}
 						selectDrive(drive.device);
 					}}

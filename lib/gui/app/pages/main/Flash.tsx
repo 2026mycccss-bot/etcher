@@ -323,8 +323,12 @@ export class FlashStep extends React.PureComponent<
 					<SmallModal
 						width={400}
 						titleElement={'Attention'}
-						cancel={() => this.handleFlashErrorResponse(false)}
-						done={() => this.handleFlashErrorResponse(true)}
+						cancel={() => {
+							this.handleFlashErrorResponse(false);
+						}}
+						done={() => {
+							this.handleFlashErrorResponse(true);
+						}}
 						action={'Retry'}
 					>
 						<Txt>
@@ -337,7 +341,9 @@ export class FlashStep extends React.PureComponent<
 				{this.state.showDriveSelectorModal && (
 					<TargetSelectorModal
 						write={true}
-						cancel={() => this.setState({ showDriveSelectorModal: false })}
+						cancel={() => {
+							this.setState({ showDriveSelectorModal: false });
+						}}
 						done={(modalTargets) => {
 							selectAllTargets(modalTargets);
 							this.setState({ showDriveSelectorModal: false });

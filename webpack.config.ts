@@ -53,7 +53,7 @@ const rules: Required<ModuleOptions>['rules'] = [
 	},
 	{
 		test: /\.(woff|woff2|eot|ttf|otf)$/,
-		loader: 'file-loader',
+		type: 'asset/resource',
 	},
 	{
 		test: /\.svg$/,

@@ -46,7 +46,7 @@ async function getWmicNetworkDrivesOutput(): Promise<string> {
 	};
 	return withTmpFile(options, async ({ path }) => {
 		const command = [
-			join(env.SystemRoot as string, 'System32', 'Wbem', 'wmic'),
+			join(env.SystemRoot!, 'System32', 'Wbem', 'wmic'),
 			'path',
 			'Win32_LogicalDisk',
 			'Where',

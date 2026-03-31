@@ -102,7 +102,9 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					{i18next.t('settings.settings')}
 				</Txt>
 			}
-			done={() => toggleModal(false)}
+			done={() => {
+				toggleModal(false);
+			}}
 		>
 			<Flex flexDirection="column">
 				{settingsList.map((setting: Setting, i: number) => {

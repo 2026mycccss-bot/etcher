@@ -136,8 +136,10 @@ const InitProgress = styled(
 	}
 `;
 
-export interface DriveSelectorProps
-	extends Omit<ModalProps, 'done' | 'cancel' | 'onSelect'> {
+export interface DriveSelectorProps extends Omit<
+	ModalProps,
+	'done' | 'cancel' | 'onSelect'
+> {
 	write: boolean;
 	multipleSelection: boolean;
 	showWarnings?: boolean;
@@ -235,7 +237,11 @@ export class DriveSelector extends React.Component<
 									{' '}
 									-{' '}
 									<b>
-										<a onClick={() => this.installMissingDrivers(drive)}>
+										<a
+											onClick={() => {
+												this.installMissingDrivers(drive);
+											}}
+										>
 											{drive.linkCTA}
 										</a>
 									</b>
@@ -366,9 +372,7 @@ export class DriveSelector extends React.Component<
 			this.setState({
 				drives,
 				image,
-				selectedList:
-					(this.props.updateSelectedList && this.props.updateSelectedList()) ||
-					[],
+				selectedList: this.props.updateSelectedList?.() || [],
 			});
 		});
 	}
@@ -409,8 +413,12 @@ export class DriveSelector extends React.Component<
 					</Flex>
 				}
 				titleDetails={<Txt fontSize={11}>{getDrives().length} found</Txt>}
-				cancel={() => cancel(this.originalList)}
-				done={() => done(selectedList)}
+				cancel={() => {
+					cancel(this.originalList);
+				}}
+				done={() => {
+					done(selectedList);
+				}}
 				action={i18next.t('drives.select', { select: selectedList.length })}
 				primaryButtonProps={{
 					primary: !showWarnings,
@@ -515,7 +523,9 @@ export class DriveSelector extends React.Component<
 								mt={15}
 								mb={15}
 								fontSize="14px"
-								onClick={() => this.setState({ showSystemDrives: true })}
+								onClick={() => {
+									this.setState({ showSystemDrives: true });
+								}}
 							>
 								<Flex alignItems="center">
 									<ChevronDownSvg height="1em" fill="currentColor" />
@@ -539,7 +549,9 @@ export class DriveSelector extends React.Component<
 					<Modal
 						width={400}
 						title={missingDriversModal.drive.linkTitle}
-						cancel={() => this.setState({ missingDriversModal: {} })}
+						cancel={() => {
+							this.setState({ missingDriversModal: {} });
+						}}
 						done={() => {
 							try {
 								if (missingDriversModal.drive !== undefined) {

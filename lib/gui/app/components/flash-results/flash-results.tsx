@@ -191,7 +191,12 @@ export function FlashResults({
 						<Txt ml="10px" tooltip={formattedErrors(errors)}>
 							{progress.failed(errors.length)}
 						</Txt>
-						<Link ml="10px" onClick={() => setShowErrorsInfo(true)}>
+						<Link
+							ml="10px"
+							onClick={() => {
+								setShowErrorsInfo(true);
+							}}
+						>
 							{i18next.t('flash.moreInfo')}
 						</Link>
 					</Flex>
@@ -220,7 +225,9 @@ export function FlashResults({
 						</Flex>
 					}
 					action={i18next.t('failedRetry')}
-					cancel={() => setShowErrorsInfo(false)}
+					cancel={() => {
+						setShowErrorsInfo(false);
+					}}
 					done={() => {
 						setShowErrorsInfo(false);
 						resetState();
@@ -232,7 +239,9 @@ export function FlashResults({
 							.filter((driveDevice) =>
 								errors.some((error) => error.device === driveDevice),
 							)
-							.forEach((driveDevice) => selection.selectDrive(driveDevice));
+							.forEach((driveDevice) => {
+								selection.selectDrive(driveDevice);
+							});
 						goToMain();
 					}}
 				>

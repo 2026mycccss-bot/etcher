@@ -191,7 +191,7 @@ async function spawnChildAndConnect({
 }): Promise<ChildApi> {
 	const etcherServerAddress = process.env.ETCHER_SERVER_ADDRESS ?? '127.0.0.1'; // localhost
 	const etcherServerPort =
-		process.env.ETCHER_SERVER_PORT ?? withPrivileges ? '3435' : '3434';
+		(process.env.ETCHER_SERVER_PORT ?? withPrivileges) ? '3435' : '3434';
 	const etcherServerId =
 		process.env.ETCHER_SERVER_ID ??
 		`etcher-${Math.random().toString(36).substring(7)}`;

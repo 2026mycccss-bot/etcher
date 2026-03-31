@@ -109,7 +109,7 @@ export function getDescription(
 	error: ErrorWithPath & { description?: string },
 ): string {
 	if (!isBlank(error.description)) {
-		return error.description as string;
+		return error.description!;
 	}
 	const codeDescription = getUserFriendlyMessageProperty(error, 'description');
 	if (codeDescription !== undefined) {

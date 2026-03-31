@@ -25,7 +25,7 @@ import { getSelectedDrives } from './selection-state';
 import * as settings from './settings';
 import { observe, store } from './store';
 
-const leds: Map<string, RGBLed> = new Map();
+const leds = new Map<string, RGBLed>();
 const animator = new Animator([], 10);
 
 function createAnimationFunction(

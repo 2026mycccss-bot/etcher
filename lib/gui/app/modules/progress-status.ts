@@ -58,7 +58,7 @@ export function fromFlashState({
 		} else {
 			return {
 				status: i18next.t('progress.flashing'),
-				position: `${position ? prettyBytes(position) : ''}`,
+				position: position ? prettyBytes(position) : '',
 			};
 		}
 	} else if (type === 'verifying') {

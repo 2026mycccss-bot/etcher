@@ -117,7 +117,9 @@ async function performWrite(
 		registerHandler('abort', onAbort);
 		registerHandler('skip', onSkip);
 
-		cancelEmitter = (cancelStatus: string) => emit('cancel', cancelStatus);
+		cancelEmitter = (cancelStatus: string) => {
+			emit('cancel', cancelStatus);
+		};
 
 		// Now that we know we're connected we can instruct the child process to start the write
 		const parameters = {
@@ -150,7 +152,7 @@ export async function flash(
 	await flashState.setFlashingFlag();
 
 	flashState.setDevicePaths(
-		drives.map((d) => d.devicePath).filter((p) => p != null) as string[],
+		drives.map((d) => d.devicePath).filter((p) => p != null),
 	);
 
 	// start api and call the flasher

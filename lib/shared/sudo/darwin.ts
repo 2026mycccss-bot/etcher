@@ -36,7 +36,7 @@ export async function sudo(
 ): Promise<{ cancelled: boolean; stdout?: string; stderr?: string }> {
 	let lang = Intl.DateTimeFormat().resolvedOptions().locale;
 	lang = lang.substr(0, 2);
-	if (supportedLocales.indexOf(lang) === -1) {
+	if (!supportedLocales.includes(lang)) {
 		lang = 'en';
 	}
 

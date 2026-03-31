@@ -272,7 +272,9 @@ export class MainPage extends React.Component<
 
 					<FlashStep
 						width={this.state.isWebviewShowing ? '220px' : '200px'}
-						goToSuccess={() => this.setState({ current: 'success' })}
+						goToSuccess={() => {
+							this.setState({ current: 'success' });
+						}}
 						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 						isFlashing={this.state.isFlashing}
 						step={state.type}
@@ -291,7 +293,11 @@ export class MainPage extends React.Component<
 								<div>
 									Etcher collects a limited amount of anonymous data to help us
 									improve user experience. You can opt out in the{' '}
-									<Link onClick={() => this.setState({ hideSettings: false })}>
+									<Link
+										onClick={() => {
+											this.setState({ hideSettings: false });
+										}}
+									>
 										settings
 									</Link>
 									.
@@ -366,7 +372,9 @@ export class MainPage extends React.Component<
 							icon={<CogSvg height="1em" fill="currentColor" />}
 							plain
 							tabIndex={5}
-							onClick={() => this.setState({ hideSettings: false })}
+							onClick={() => {
+								this.setState({ hideSettings: false });
+							}}
 							style={{
 								// Make touch events click instead of dragging
 								WebkitAppRegion: 'no-drag',
