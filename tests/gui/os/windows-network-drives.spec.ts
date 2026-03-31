@@ -28,24 +28,27 @@ function mockGetWmicOutput() {
 	});
 }
 
-describe('Network drives on Windows', () => {
-	let osPlatformStub: SinonStub;
+(process.platform === 'win32' ? describe : describe.skip)(
+	'Network drives on Windows',
+	() => {
+		let osPlatformStub: SinonStub;
 
-	before(async () => {
-		osPlatformStub = stub(os, 'platform');
-		osPlatformStub.returns('win32');
-	});
+		before(async () => {
+			osPlatformStub = stub(os, 'platform');
+			osPlatformStub.returns('win32');
+		});
 
-	it('should parse network drive mapping on Windows', async () => {
-		expect(
-			await wnd.replaceWindowsNetworkDriveLetter(
-				'Z:\\some-folder\\some-file',
-				mockGetWmicOutput,
-			),
-		).to.equal('\\\\192.168.1.1\\Publicé\\some-folder\\some-file');
-	});
+		it('should parse network drive mapping on Windows', async () => {
+			expect(
+				await wnd.replaceWindowsNetworkDriveLetter(
+					'Z:\\some-folder\\some-file',
+					mockGetWmicOutput,
+				),
+			).to.equal('\\\\192.168.1.1\\Publicé\\some-folder\\some-file');
+		});
 
-	after(() => {
-		osPlatformStub.restore();
-	});
-});
+		after(() => {
+			osPlatformStub.restore();
+		});
+	},
+);
