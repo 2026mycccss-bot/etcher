@@ -33,6 +33,12 @@ import styled, { css } from 'styled-components';
 
 import { colors, theme } from './theme';
 
+declare module 'styled-components' {
+	export interface DefaultTheme {
+		colors: typeof colors;
+	}
+}
+
 export const ThemedProvider = (props: any) => (
 	<Provider theme={theme} {...props}></Provider>
 );
@@ -136,29 +142,31 @@ const modalFooterShadowCss = css`
 	background-attachment: local, local, scroll, scroll;
 `;
 
-export const Modal = styled(({ style, children, ...props }) => {
-	return (
-		<ModalBase
-			position="top"
-			width="97vw"
-			cancelButtonProps={{
-				style: {
-					marginRight: '20px',
-					border: 'solid 1px #2a506f',
-				},
-			}}
-			style={{
-				height: '87.5vh',
-				...style,
-			}}
-			{...props}
-		>
-			<ScrollableFlex flexDirection="column" width="100%" height="90%">
-				{children.length ? children.map((c: any) => <>{c}</>) : children}
-			</ScrollableFlex>
-		</ModalBase>
-	);
-})`
+export const Modal = styled(
+	({ style, children, $reverseFooterButtons: _rfb, ...props }) => {
+		return (
+			<ModalBase
+				position="top"
+				width="97vw"
+				cancelButtonProps={{
+					style: {
+						marginRight: '20px',
+						border: 'solid 1px #2a506f',
+					},
+				}}
+				style={{
+					height: '87.5vh',
+					...style,
+				}}
+				{...props}
+			>
+				<ScrollableFlex flexDirection="column" width="100%" height="90%">
+					{children.length ? children.map((c: any) => <>{c}</>) : children}
+				</ScrollableFlex>
+			</ModalBase>
+		);
+	},
+)<{ $reverseFooterButtons?: boolean }>`
 	> div {
 		padding: 0;
 		height: 99%;
@@ -188,7 +196,7 @@ export const Modal = styled(({ style, children, ...props }) => {
 		> div:last-child {
 			margin: 0;
 			flex-direction: ${(props) =>
-				props.reverseFooterButtons ? 'row-reverse' : 'row'};
+				props.$reverseFooterButtons ? 'row-reverse' : 'row'};
 			border-radius: 0 0 7px 7px;
 			height: 80px;
 			background-color: #fff;
@@ -240,7 +248,7 @@ export const Alert = styled((props) => (
 	}
 `;
 
-export interface GenericTableProps<T> extends BaseTableProps<T> {
+export interface GenericTableProps<T extends object> extends BaseTableProps<T> {
 	refFn: (t: BaseTable<T>) => void;
 	data: T[];
 	checkedRowsNumber?: number;
@@ -248,7 +256,7 @@ export interface GenericTableProps<T> extends BaseTableProps<T> {
 	showWarnings?: boolean;
 }
 
-function GenericTable<T>(
+function GenericTable<T extends object>(
 	props: GenericTableProps<T>,
 ): React.ReactElement<GenericTableProps<T>> {
 	return (
@@ -258,7 +266,7 @@ function GenericTable<T>(
 	);
 }
 
-function StyledTable<T>() {
+function StyledTable<T extends object>() {
 	return styled((props: GenericTableProps<T>) => (
 		<GenericTable<T> {...props} />
 	))`

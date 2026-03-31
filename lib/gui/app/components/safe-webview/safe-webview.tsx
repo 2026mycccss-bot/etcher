@@ -76,7 +76,7 @@ export class SafeWebview extends React.PureComponent<
 > {
 	private entryHref: string;
 	private session: electron.Session;
-	private webviewRef: React.RefObject<electron.WebviewTag>;
+	private webviewRef: React.RefObject<electron.WebviewTag | null>;
 
 	constructor(props: SafeWebviewProps) {
 		super(props);

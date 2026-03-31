@@ -73,25 +73,25 @@ export const DEFAULT_STATE = Immutable.fromJS({
 		averageSpeed: null,
 	},
 	lastAverageFlashingSpeed: null,
-});
+}) as Immutable.Map<string, any>;
 
 /**
  * @summary Application supported action messages
  */
 export enum Actions {
-	SET_DEVICE_PATHS,
-	SET_FAILED_DEVICE_ERRORS,
-	SET_AVAILABLE_TARGETS,
-	SET_FLASH_STATE,
-	RESET_FLASH_STATE,
-	SET_FLASHING_FLAG,
-	UNSET_FLASHING_FLAG,
-	SELECT_TARGET,
-	SELECT_SOURCE,
-	DESELECT_TARGET,
-	DESELECT_SOURCE,
-	SET_APPLICATION_SESSION_UUID,
-	SET_FLASHING_WORKFLOW_UUID,
+	SET_DEVICE_PATHS = 'SET_DEVICE_PATHS',
+	SET_FAILED_DEVICE_ERRORS = 'SET_FAILED_DEVICE_ERRORS',
+	SET_AVAILABLE_TARGETS = 'SET_AVAILABLE_TARGETS',
+	SET_FLASH_STATE = 'SET_FLASH_STATE',
+	RESET_FLASH_STATE = 'RESET_FLASH_STATE',
+	SET_FLASHING_FLAG = 'SET_FLASHING_FLAG',
+	UNSET_FLASHING_FLAG = 'UNSET_FLASHING_FLAG',
+	SELECT_TARGET = 'SELECT_TARGET',
+	SELECT_SOURCE = 'SELECT_SOURCE',
+	DESELECT_TARGET = 'DESELECT_TARGET',
+	DESELECT_SOURCE = 'DESELECT_SOURCE',
+	SET_APPLICATION_SESSION_UUID = 'SET_APPLICATION_SESSION_UUID',
+	SET_FLASHING_WORKFLOW_UUID = 'SET_FLASHING_WORKFLOW_UUID',
 }
 
 interface Action {
@@ -149,7 +149,9 @@ function storeReducer(
 			]);
 
 			const newState = state.set('availableDrives', Immutable.fromJS(drives));
-			const selectedDevices = newState.getIn(['selection', 'devices']).toJS();
+			const selectedDevices = (
+				newState.getIn(['selection', 'devices']) as Immutable.OrderedSet<string>
+			).toJS();
 
 			// Remove selected drives that are stale, i.e. missing from availableDrives
 			const nonStaleNewState = _.reduce(
@@ -178,9 +180,12 @@ function storeReducer(
 				settings.getSync('autoSelectAllDrives'),
 			);
 			const AUTOSELECT_DRIVE_COUNT = 1;
-			const nonStaleSelectedDevices = nonStaleNewState
-				.getIn(['selection', 'devices'])
-				.toJS();
+			const nonStaleSelectedDevices = (
+				nonStaleNewState.getIn([
+					'selection',
+					'devices',
+				]) as Immutable.OrderedSet<string>
+			).toJS();
 			const hasSelectedDevices =
 				nonStaleSelectedDevices.length >= AUTOSELECT_DRIVE_COUNT;
 			const shouldAutoselectOne =
@@ -189,9 +194,12 @@ function storeReducer(
 			if (shouldAutoselectOne || shouldAutoselectAll) {
 				// Even if there's no image selected, we need to call several
 				// drive/image related checks, and `{}` works fine with them
-				const image = state
-					.getIn(['selection', 'image'], Immutable.fromJS({}))
-					.toJS();
+				const image = (
+					state.getIn(
+						['selection', 'image'],
+						Immutable.fromJS({}) as Immutable.Map<string, any>,
+					) as Immutable.Map<string, any>
+				).toJS() as any;
 
 				return _.reduce(
 					drives,
@@ -380,17 +388,22 @@ function storeReducer(
 				});
 			}
 
-			const image = state.getIn(['selection', 'image']);
+			const image = state.getIn(['selection', 'image']) as
+				| Immutable.Map<string, any>
+				| undefined;
 			if (
 				image &&
-				!constraints.isDriveLargeEnough(selectedDrive, image.toJS())
+				!constraints.isDriveLargeEnough(selectedDrive, image.toJS() as any)
 			) {
 				throw errors.createError({
 					title: 'The drive is not large enough',
 				});
 			}
 
-			const selectedDevices = state.getIn(['selection', 'devices']);
+			const selectedDevices = state.getIn([
+				'selection',
+				'devices',
+			]) as Immutable.OrderedSet<string>;
 
 			return state.setIn(['selection', 'devices'], selectedDevices.add(device));
 		}
@@ -454,7 +467,10 @@ function storeReducer(
 				});
 			}
 
-			const selectedDevices = state.getIn(['selection', 'devices']);
+			const selectedDevices = state.getIn([
+				'selection',
+				'devices',
+			]) as Immutable.OrderedSet<string>;
 
 			// Remove image-incompatible drives from selection with `constraints.isDriveValid`
 			return _.reduce(
@@ -492,7 +508,10 @@ function storeReducer(
 				});
 			}
 
-			const selectedDevices = state.getIn(['selection', 'devices']);
+			const selectedDevices = state.getIn([
+				'selection',
+				'devices',
+			]) as Immutable.OrderedSet<string>;
 
 			// Remove drive from set in state
 			return state.setIn(
@@ -527,7 +546,7 @@ function storeReducer(
 	}
 }
 
-export const store = redux.createStore(storeReducer, DEFAULT_STATE);
+export const store = redux.legacy_createStore(storeReducer, DEFAULT_STATE);
 
 /**
  * @summary Observe the store for changes

@@ -1,4 +1,5 @@
 import type { DrivelistDrive } from '../../../shared/drive-constraints';
+import type * as Immutable from 'immutable';
 /*
  * Copyright 2016 balena.io
  *
@@ -52,7 +53,11 @@ export function selectSource(source: SourceMetadata) {
  * @summary Get all selected drives' devices
  */
 export function getSelectedDevices(): string[] {
-	return store.getState().getIn(['selection', 'devices']).toJS();
+	return (
+		store
+			.getState()
+			.getIn(['selection', 'devices']) as Immutable.OrderedSet<string>
+	).toJS();
 }
 
 /**

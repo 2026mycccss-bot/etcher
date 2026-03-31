@@ -18,6 +18,7 @@ import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/tri
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import type * as sourceDestination from 'etcher-sdk/build/source-destination/';
 import * as React from 'react';
+import type { JSX } from 'react';
 import type { ModalProps, TableColumn } from 'rendition';
 import { Flex, Txt, Badge, Link } from 'rendition';
 import styled from 'styled-components';
@@ -136,10 +137,8 @@ const InitProgress = styled(
 	}
 `;
 
-export interface DriveSelectorProps extends Omit<
-	ModalProps,
-	'done' | 'cancel' | 'onSelect'
-> {
+export interface DriveSelectorProps
+	extends Omit<ModalProps, 'done' | 'cancel' | 'onSelect'> {
 	write: boolean;
 	multipleSelection: boolean;
 	showWarnings?: boolean;

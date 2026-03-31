@@ -24,6 +24,8 @@ import * as React from 'react';
 import { Alert, Flex, Link } from 'rendition';
 import styled from 'styled-components';
 
+import * as electron from 'electron';
+
 import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import { SettingsModal } from '../../components/settings/settings';
@@ -173,6 +175,14 @@ export class MainPage extends React.Component<
 			this.setState(this.stateHelper());
 		});
 		this.setState({ featuredProjectURL: await this.getFeaturedProjectURL() });
+		// Set the correct zoomFactor for webviews
+		try {
+			const fullscreen = await settings.get('fullscreen');
+			const width = fullscreen ? window.screen.width : window.outerWidth;
+			electron.webFrame.setZoomFactor(width / settings.DEFAULT_WIDTH);
+		} catch (err) {
+			// noop
+		}
 	}
 
 	public componentDidUpdate(

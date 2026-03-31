@@ -28,7 +28,7 @@ const DriveStatusWarningModal = ({
 	return (
 		<Modal
 			footerShadow={false}
-			reverseFooterButtons={true}
+			$reverseFooterButtons={true}
 			done={done}
 			cancel={cancel}
 			cancelButtonProps={{

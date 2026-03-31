@@ -26,6 +26,7 @@ import { uniqBy, isNil } from 'lodash';
 import * as path from 'path';
 import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
+import type { JSX } from 'react';
 import { requestMetadata } from '../../app';
 
 import type { ButtonProps } from 'rendition';

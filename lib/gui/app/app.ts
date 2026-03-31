@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import * as electron from 'electron';
 import * as remote from '@electron/remote';
 import type { Dictionary } from 'lodash';
 import { debounce, capitalize, values } from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as packageJSON from '../../../package.json';
@@ -29,7 +28,6 @@ import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
-import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
 import { spawnChildAndConnect } from './modules/api';
@@ -198,18 +196,6 @@ export async function main() {
 		exceptionReporter.report(error);
 	}
 
-	ReactDOM.render(
-		React.createElement(MainPage),
-		document.getElementById('main'),
-		// callback to set the correct zoomFactor for webviews as well
-		async () => {
-			const fullscreen = await settings.get('fullscreen');
-			const width = fullscreen ? window.screen.width : window.outerWidth;
-			try {
-				electron.webFrame.setZoomFactor(width / settings.DEFAULT_WIDTH);
-			} catch (err) {
-				// noop
-			}
-		},
-	);
+	const root = createRoot(document.getElementById('main')!);
+	root.render(React.createElement(MainPage));
 }
