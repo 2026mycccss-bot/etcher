@@ -91,6 +91,11 @@ export const rendererConfig: Configuration = {
 		alias: {
 			// need to alias ws to the wrapper to avoid the browser fake version to be used
 			ws: resolve(__dirname, 'node_modules/ws/wrapper.mjs'),
+			// force a single copy of react/react-dom/styled-components; rendition nests
+			// react@17 and styled-components@5 via grommet which causes hook/theme errors
+			react: resolve(__dirname, 'node_modules/react'),
+			'react-dom': resolve(__dirname, 'node_modules/react-dom'),
+			'styled-components': resolve(__dirname, 'node_modules/styled-components'),
 		},
 	},
 };

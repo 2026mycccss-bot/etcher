@@ -3,6 +3,7 @@
 		"strict": true,
 		"target": "es2019",
 		"typeRoots": ["./node_modules/@types", "./typings"],
+		"types": ["node"],
 		"module": "commonjs",
 		"lib": ["dom", "esnext"],
 		"declaration": true,
@@ -16,6 +17,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"ignoreDeprecations": "6.0"
 	}
 }
