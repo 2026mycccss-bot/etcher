@@ -181,7 +181,7 @@ describe('Model: flashState', function () {
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						eta: '15',
 						speed: 100000000000,
 						averageSpeed: 100000000000,
@@ -195,7 +195,7 @@ describe('Model: flashState', function () {
 			it('should throw if speed is missing', function () {
 				flashState.setFlashingFlag();
 				expect(function () {
-					// @ts-ignore
+					// @ts-expect-error -- known type suppression
 					flashState.setProgressState({
 						failed: 0,
 						type: 'flashing',
@@ -247,13 +247,13 @@ describe('Model: flashState', function () {
 				expect(() => {
 					flashState.setFlashingFlag();
 					flashState.setProgressState({
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						flashing: {},
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						verifying: [],
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						successful: true,
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						failed: 'string',
 						percentage: 0,
 						eta: 0,
@@ -346,7 +346,7 @@ describe('Model: flashState', function () {
 		describe('.unsetFlashingFlag()', function () {
 			it('should throw if no flashing results', function () {
 				expect(function () {
-					// @ts-ignore
+					// @ts-expect-error -- known type suppression
 					flashState.unsetFlashingFlag();
 				}).to.throw('Missing results');
 			});
@@ -376,7 +376,7 @@ describe('Model: flashState', function () {
 					flashState.unsetFlashingFlag({
 						cancelled: false,
 						sourceChecksum: '1234',
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						errorCode: {
 							name: 'EBUSY',
 						},
@@ -401,7 +401,7 @@ describe('Model: flashState', function () {
 			it('should throw if cancelled is not boolean', function () {
 				expect(function () {
 					flashState.unsetFlashingFlag({
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						cancelled: 'false',
 						sourceChecksum: '1234',
 					});

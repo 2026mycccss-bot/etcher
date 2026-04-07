@@ -65,7 +65,7 @@ describe('Shared: DriveConstraints', function () {
 					isReadOnly: true,
 					isSystem: false,
 				} as constraints.DrivelistDrive,
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				undefined,
 			);
 
@@ -104,12 +104,12 @@ describe('Shared: DriveConstraints', function () {
 			};
 			beforeEach(function () {
 				this.separator = path.sep;
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				path.sep = '\\';
 			});
 
 			afterEach(function () {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				path.sep = this.separator;
 			});
 
@@ -210,12 +210,12 @@ describe('Shared: DriveConstraints', function () {
 			};
 			beforeEach(function () {
 				this.separator = path.sep;
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				path.sep = '/';
 			});
 
 			afterEach(function () {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				path.sep = this.separator;
 			});
 
@@ -505,7 +505,7 @@ describe('Shared: DriveConstraints', function () {
 					size: 1000000000,
 					isReadOnly: false,
 				} as constraints.DrivelistDrive,
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				undefined,
 			);
 
@@ -588,7 +588,7 @@ describe('Shared: DriveConstraints', function () {
 					size: 2000000000,
 					isReadOnly: false,
 				} as constraints.DrivelistDrive,
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				undefined,
 			);
 
@@ -902,7 +902,7 @@ describe('Shared: DriveConstraints', function () {
 				.map((tuple) => {
 					return {
 						type: constraints.COMPATIBILITY_STATUS_TYPES[tuple[0]],
-						// @ts-ignore
+						// @ts-expect-error -- known type suppression
 						message: messages.compatibility[tuple[1]](params),
 					};
 				})
@@ -947,10 +947,10 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 					true,
 				);
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				const expectedTuples = [['ERROR', 'containsImage']];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -966,7 +966,7 @@ describe('Shared: DriveConstraints', function () {
 				);
 				const expectedTuples = [['WARNING', 'system']];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -1001,10 +1001,10 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 					true,
 				);
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				const expectedTuples = [];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -1018,10 +1018,10 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 					true,
 				);
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				const expectedTuples = [['ERROR', 'locked']];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -1035,10 +1035,10 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 					true,
 				);
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				const expectedTuples = [['WARNING', 'sizeNotRecommended']];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -1056,7 +1056,7 @@ describe('Shared: DriveConstraints', function () {
 
 				expectStatusTypesAndMessagesToBe(
 					result,
-					// @ts-ignore
+					// @ts-expect-error -- known type suppression
 					expectedTuples,
 					this.drive.size,
 				);
@@ -1073,13 +1073,13 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 					true,
 				);
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				const expectedTuples = [
 					['ERROR', 'locked'],
 					['ERROR', 'containsImage'],
 				];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -1093,10 +1093,10 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 					true,
 				);
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				const expectedTuples = [['ERROR', 'locked']];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -1132,13 +1132,13 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 					true,
 				);
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				const expectedTuples = [
 					['WARNING', 'sizeNotRecommended'],
 					['WARNING', 'system'],
 				];
 
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
 			});
 		});
@@ -1227,10 +1227,10 @@ describe('Shared: DriveConstraints', function () {
 			displayName: 'rpi.img',
 			path: path.join(__dirname, 'rpi.img'),
 			SourceType: 'File',
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			size: drives[2].size + 1,
 			isSizeEstimated: false,
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			recommendedDriveSize: drives[5].size + 1,
 		};
 

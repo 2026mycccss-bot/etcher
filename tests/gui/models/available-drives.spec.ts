@@ -30,21 +30,21 @@ describe('Model: availableDrives', function () {
 		describe('.setDrives()', function () {
 			it('should throw if no drives', function () {
 				expect(function () {
-					// @ts-ignore
+					// @ts-expect-error -- known type suppression
 					availableDrives.setDrives();
 				}).to.throw('Missing drives');
 			});
 
 			it('should throw if drives is not an array', function () {
 				expect(function () {
-					// @ts-ignore
+					// @ts-expect-error -- known type suppression
 					availableDrives.setDrives(123);
 				}).to.throw('Invalid drives: 123');
 			});
 
 			it('should throw if drives is not an array of objects', function () {
 				expect(function () {
-					// @ts-ignore
+					// @ts-expect-error -- known type suppression
 					availableDrives.setDrives([123, 123, 123]);
 				}).to.throw('Invalid drives: 123,123,123');
 			});

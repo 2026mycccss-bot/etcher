@@ -70,16 +70,15 @@ type Drive =
 
 function prepareDrive(drive: Drive) {
 	if (drive instanceof sdk.sourceDestination.BlockDevice) {
-		// @ts-ignore (BlockDevice.drive is private)
+		// @ts-expect-error (BlockDevice.drive is private)
 		return drive.drive;
 	} else if (drive instanceof sdk.sourceDestination.UsbbootDrive) {
 		// This is a workaround etcher expecting a device string and a size
 
-		// @ts-ignore
+		// @ts-expect-error -- string portId assigned to null-typed device field
 		drive.device = drive.usbDevice.portId;
 		drive.size = null;
 
-		// @ts-ignore
 		drive.progress = 0;
 		drive.disabled = true;
 		drive.on('progress', (progress) => {
@@ -144,10 +143,10 @@ function updateDriveProgress(
 ) {
 	const drives = getDrives();
 
-	// @ts-ignore
+	// @ts-expect-error -- known type suppression
 	const driveInMap = drives[drive.device];
 	if (driveInMap) {
-		// @ts-ignore
+		// @ts-expect-error -- known type suppression
 		drives[drive.device] = { ...driveInMap, progress };
 		setDrives(drives);
 	}

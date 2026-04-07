@@ -30,7 +30,7 @@ import type { SourceMetadata } from '../../../lib/shared/typings/source-selector
 import * as flashState from '../../../lib/gui/app/models/flash-state';
 import * as imageWriter from '../../../lib/gui/app/modules/image-writer';
 
-// @ts-ignore
+// @ts-expect-error -- known type suppression
 const fakeDrive: DrivelistDrive = {};
 
 describe('Browser: imageWriter', () => {

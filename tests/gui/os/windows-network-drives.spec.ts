@@ -33,7 +33,7 @@ function mockGetWmicOutput() {
 	() => {
 		let osPlatformStub: SinonStub;
 
-		before(async () => {
+		before(() => {
 			osPlatformStub = stub(os, 'platform');
 			osPlatformStub.returns('win32');
 		});

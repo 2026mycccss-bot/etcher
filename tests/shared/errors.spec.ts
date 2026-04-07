@@ -39,7 +39,7 @@ describe('Shared: Errors', function () {
 	describe('.getTitle()', function () {
 		it('should return a generic error message if the error is an empty object', function () {
 			const error = {};
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getTitle(error)).to.equal('An error ocurred');
 		});
 
@@ -50,28 +50,28 @@ describe('Shared: Errors', function () {
 
 		it('should return the error code if there is no message', function () {
 			const error = new Error();
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'MYERROR';
 			expect(errors.getTitle(error)).to.equal('Error code: MYERROR');
 		});
 
 		it('should prioritize the message over the code', function () {
 			const error = new Error('Foo bar');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'MYERROR';
 			expect(errors.getTitle(error)).to.equal('Foo bar');
 		});
 
 		it('should prioritize the code over the message if the message is an empty string', function () {
 			const error = new Error('');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'MYERROR';
 			expect(errors.getTitle(error)).to.equal('Error code: MYERROR');
 		});
 
 		it('should prioritize the code over the message if the message is a blank string', function () {
 			const error = new Error('    ');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'MYERROR';
 			expect(errors.getTitle(error)).to.equal('Error code: MYERROR');
 		});
@@ -81,7 +81,7 @@ describe('Shared: Errors', function () {
 				code: 'MYERROR',
 			};
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getTitle(error)).to.equal('Error code: MYERROR');
 		});
 
@@ -90,7 +90,7 @@ describe('Shared: Errors', function () {
 				message: 'Hello world',
 			};
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getTitle(error)).to.equal('Hello world');
 		});
 
@@ -100,41 +100,41 @@ describe('Shared: Errors', function () {
 				code: 'MYERROR',
 			};
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getTitle(error)).to.equal('Hello world');
 		});
 
 		it('should display an error code 0', function () {
 			const error = new Error();
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 0;
 			expect(errors.getTitle(error)).to.equal('Error code: 0');
 		});
 
 		it('should display an error code 1', function () {
 			const error = new Error();
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 1;
 			expect(errors.getTitle(error)).to.equal('Error code: 1');
 		});
 
 		it('should display an error code -1', function () {
 			const error = new Error();
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = -1;
 			expect(errors.getTitle(error)).to.equal('Error code: -1');
 		});
 
 		it('should not display an empty string error code', function () {
 			const error = new Error();
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = '';
 			expect(errors.getTitle(error)).to.equal('An error ocurred');
 		});
 
 		it('should not display a blank string error code', function () {
 			const error = new Error();
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = '   ';
 			expect(errors.getTitle(error)).to.equal('An error ocurred');
 		});
@@ -156,9 +156,9 @@ describe('Shared: Errors', function () {
 
 		it('should rephrase an ENOENT error', function () {
 			const error = new Error('ENOENT error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.path = '/foo/bar';
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOENT';
 			expect(errors.getTitle(error)).to.equal(
 				'No such file or directory: /foo/bar',
@@ -167,7 +167,7 @@ describe('Shared: Errors', function () {
 
 		it('should rephrase an EPERM error', function () {
 			const error = new Error('EPERM error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'EPERM';
 			expect(errors.getTitle(error)).to.equal(
 				"You're not authorized to perform this operation",
@@ -176,7 +176,7 @@ describe('Shared: Errors', function () {
 
 		it('should rephrase an EACCES error', function () {
 			const error = new Error('EACCES error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'EACCES';
 			expect(errors.getTitle(error)).to.equal(
 				"You don't have access to this resource",
@@ -185,7 +185,7 @@ describe('Shared: Errors', function () {
 
 		it('should rephrase an ENOMEM error', function () {
 			const error = new Error('ENOMEM error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOMEM';
 			expect(errors.getTitle(error)).to.equal('Your system ran out of memory');
 		});
@@ -197,7 +197,7 @@ describe('Shared: Errors', function () {
 				description: 'My description',
 			};
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getDescription(error)).to.equal('My description');
 		});
 
@@ -206,7 +206,7 @@ describe('Shared: Errors', function () {
 				stack: 'My stack',
 			};
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getDescription(error)).to.equal('My stack');
 		});
 
@@ -216,7 +216,7 @@ describe('Shared: Errors', function () {
 				stack: 'My stack',
 			};
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getDescription(error)).to.equal('My description');
 		});
 
@@ -226,7 +226,7 @@ describe('Shared: Errors', function () {
 				job: 'Developer',
 			};
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(errors.getDescription(error)).to.equal(
 				['{', '  "name": "John Doe",', '  "job": "Developer"', '}'].join('\n'),
 			);
@@ -239,28 +239,28 @@ describe('Shared: Errors', function () {
 
 		it('should prefer a description property to a stack', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.description = 'My description';
 			expect(errors.getDescription(error)).to.equal('My description');
 		});
 
 		it('should return the stack if the description is an empty string', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.description = '';
 			expect(errors.getDescription(error)).to.equal(error.stack);
 		});
 
 		it('should return the stack if the description is a blank string', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.description = '   ';
 			expect(errors.getDescription(error)).to.equal(error.stack);
 		});
 
 		it('should get a generic description for ENOENT', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOENT';
 			expect(errors.getDescription(error)).to.equal(
 				"The file you're trying to access doesn't exist",
@@ -269,7 +269,7 @@ describe('Shared: Errors', function () {
 
 		it('should get a generic description for EPERM', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'EPERM';
 			expect(errors.getDescription(error)).to.equal(
 				'Please ensure you have necessary permissions for this task',
@@ -278,7 +278,7 @@ describe('Shared: Errors', function () {
 
 		it('should get a generic description for EACCES', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'EACCES';
 			const message =
 				'Please ensure you have necessary permissions to access this resource';
@@ -287,7 +287,7 @@ describe('Shared: Errors', function () {
 
 		it('should get a generic description for ENOMEM', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOMEM';
 			const message =
 				'Please make sure your system has enough available memory for this task';
@@ -296,9 +296,9 @@ describe('Shared: Errors', function () {
 
 		it('should prefer a description property than a code description', function () {
 			const error = new Error('Foo');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOMEM';
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.description = 'Memory error';
 			expect(errors.getDescription(error)).to.equal('Memory error');
 		});
@@ -311,14 +311,14 @@ describe('Shared: Errors', function () {
 
 			it('should return the stack if the description is an empty string', function () {
 				const error = new Error('Foo');
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				error.description = '';
 				expect(errors.getDescription(error)).to.equal(error.stack);
 			});
 
 			it('should return the stack if the description is a blank string', function () {
 				const error = new Error('Foo');
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				error.description = '   ';
 				expect(errors.getDescription(error)).to.equal(error.stack);
 			});
@@ -384,14 +384,14 @@ describe('Shared: Errors', function () {
 
 		it('should throw if no title', function () {
 			expect(() => {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				errors.createError({});
 			}).to.throw('Invalid error title: undefined');
 		});
 
 		it('should throw if there is a description but no title', function () {
 			expect(() => {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				errors.createError({
 					description: 'foo',
 				});
@@ -436,7 +436,7 @@ describe('Shared: Errors', function () {
 		});
 
 		it('should correctly add only a title', function () {
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			const error = errors.createUserError({
 				title: 'Foo',
 			});
@@ -446,13 +446,13 @@ describe('Shared: Errors', function () {
 		});
 
 		it('should correctly add a code', function () {
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			const error = errors.createUserError({
 				title: 'Foo',
 				code: 'ENOENT',
 			});
 
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(error.code).to.equal('ENOENT');
 		});
 
@@ -476,14 +476,14 @@ describe('Shared: Errors', function () {
 
 		it('should throw if no title', function () {
 			expect(() => {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				errors.createUserError({});
 			}).to.throw('Invalid error title: undefined');
 		});
 
 		it('should throw if title is empty', function () {
 			expect(() => {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				errors.createUserError({
 					title: '',
 				});
@@ -492,7 +492,7 @@ describe('Shared: Errors', function () {
 
 		it('should throw if there is a description but no title', function () {
 			expect(() => {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				errors.createUserError({
 					description: 'foo',
 				});
@@ -501,7 +501,7 @@ describe('Shared: Errors', function () {
 
 		it('should throw if title is blank', function () {
 			expect(() => {
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				errors.createUserError({
 					title: '   ',
 				});
@@ -529,7 +529,7 @@ describe('Shared: Errors', function () {
 
 		it('should convert an error with a description', function () {
 			const error = new Error('My error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.description = 'My description';
 
 			expect(errors.toJSON(error)).to.deep.equal({
@@ -549,7 +549,7 @@ describe('Shared: Errors', function () {
 
 		it('should convert an error with a code', function () {
 			const error = new Error('My error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOENT';
 
 			expect(errors.toJSON(error)).to.deep.equal({
@@ -569,9 +569,9 @@ describe('Shared: Errors', function () {
 
 		it('should convert an error with a description and a code', function () {
 			const error = new Error('My error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.description = 'My description';
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOENT';
 
 			expect(errors.toJSON(error)).to.deep.equal({
@@ -591,7 +591,7 @@ describe('Shared: Errors', function () {
 
 		it('should convert an error with a report value', function () {
 			const error = new Error('My error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.report = true;
 
 			expect(errors.toJSON(error)).to.deep.equal({
@@ -640,60 +640,60 @@ describe('Shared: Errors', function () {
 			const result = errors.fromJSON(errors.toJSON(error));
 
 			expect(result.message).to.equal(error.message);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.description).to.equal(error.description);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.code).to.equal(error.code);
 			expect(result.stack).to.equal(error.stack);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.report).to.equal(error.report);
 		});
 
 		it('should convert a JSON error with a description', function () {
 			const error = new Error('My error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.description = 'My description';
 			const result = errors.fromJSON(errors.toJSON(error));
 
 			expect(result.message).to.equal(error.message);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.description).to.equal(error.description);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.code).to.equal(error.code);
 			expect(result.stack).to.equal(error.stack);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.report).to.equal(error.report);
 		});
 
 		it('should convert a JSON error with a code', function () {
 			const error = new Error('My error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.code = 'ENOENT';
 			const result = errors.fromJSON(errors.toJSON(error));
 
 			expect(result.message).to.equal(error.message);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.description).to.equal(error.description);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.code).to.equal(error.code);
 			expect(result.stack).to.equal(error.stack);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.report).to.equal(error.report);
 		});
 
 		it('should convert a JSON error with a report value', function () {
 			const error = new Error('My error');
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			error.report = false;
 			const result = errors.fromJSON(errors.toJSON(error));
 
 			expect(result.message).to.equal(error.message);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.description).to.equal(error.description);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.code).to.equal(error.code);
 			expect(result.stack).to.equal(error.stack);
-			// @ts-ignore
+			// @ts-expect-error -- known type suppression
 			expect(result.report).to.equal(error.report);
 		});
 	});

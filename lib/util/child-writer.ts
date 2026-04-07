@@ -51,7 +51,7 @@ async function write(options: WriteOptions) {
 		emitFail({
 			// TODO: device should be destination
 
-			// @ts-ignore (destination.drive is private)
+			// @ts-expect-error (destination.drive is private)
 			device: destination.drive,
 			error: toJSON(error),
 		});

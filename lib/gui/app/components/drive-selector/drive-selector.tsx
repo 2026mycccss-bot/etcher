@@ -137,8 +137,10 @@ const InitProgress = styled(
 	}
 `;
 
-export interface DriveSelectorProps
-	extends Omit<ModalProps, 'done' | 'cancel' | 'onSelect'> {
+export interface DriveSelectorProps extends Omit<
+	ModalProps,
+	'done' | 'cancel' | 'onSelect'
+> {
 	write: boolean;
 	multipleSelection: boolean;
 	showWarnings?: boolean;

@@ -312,7 +312,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if device is not a string', function () {
 				expect(function () {
-					// @ts-ignore
+					// @ts-expect-error -- known type suppression
 					selectionState.selectDrive(123);
 				}).to.throw('Invalid drive: 123');
 			});

@@ -30,9 +30,7 @@ function addWebpackDefine(
 		}
 
 		const { mainConfig } = plugin.config as any;
-		if (mainConfig.plugins == null) {
-			mainConfig.plugins = [];
-		}
+		mainConfig.plugins ??= [];
 
 		const value = isStartScrpt()
 			? // on `npm start`, point directly to the binary
@@ -140,15 +138,15 @@ export class SidecarPlugin extends PluginBase<void> {
 		const BIN_NAME = `etcher-util${process.platform === 'win32' ? '.exe' : ''}`;
 
 		return {
-			resolveForgeConfig: async (currentConfig) => {
+			resolveForgeConfig: (currentConfig) => {
 				log('resolveForgeConfig');
 				return addWebpackDefine(currentConfig, DEFINE_NAME, BIN_DIR, BIN_NAME);
 			},
-			generateAssets: async (_config, platform, arch) => {
+			generateAssets: (_config, platform, arch) => {
 				log('generateAssets', { platform, arch });
 				build(SRC_DIR, arch, BIN_DIR, BIN_NAME);
 			},
-			packageAfterCopy: async (
+			packageAfterCopy: (
 				_config,
 				buildPath,
 				electronVersion,

@@ -121,7 +121,7 @@ export class SafeWebview extends React.PureComponent<
 				ref={this.webviewRef}
 				partition={ELECTRON_SESSION}
 				style={style}
-				// @ts-ignore
+				// @ts-expect-error -- known type suppression
 				allowpopups="true"
 			/>
 		);
