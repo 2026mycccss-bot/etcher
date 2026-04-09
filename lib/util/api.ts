@@ -53,7 +53,7 @@ console.log(JSON.stringify(process.env, null, 2));
 
 const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS!;
 const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT!;
-// const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
+const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
 
 const ETCHER_TERMINATE_TIMEOUT: number = parseInt(
 	process.env.ETCHER_TERMINATE_TIMEOUT ?? '10000',
@@ -62,11 +62,28 @@ const ETCHER_TERMINATE_TIMEOUT: number = parseInt(
 
 const host = ETCHER_SERVER_ADDRESS ?? '127.0.0.1';
 const port = parseInt(ETCHER_SERVER_PORT || '3434', 10);
-// const path = ETCHER_SERVER_ID || "etcher";
 
-// TODO: use the path as cheap authentication
+const wss = new WebSocketServer({
+	host,
+	port,
+	verifyClient: (info, callback) => {
+		// CSWSH Prevention: Reject if an Origin header is present.
+		// Standard native ws clients (like in our Electron app) do not send this header.
+		// Web browsers always send an Origin header, so this blocks requests from regular browser tabs.
+		if (info.req.headers.origin !== undefined) {
+			console.error('Rejected connection with Origin header (CSWSH protection)');
+			return callback(false, 403, 'Forbidden');
+		}
 
-const wss = new WebSocketServer({ host, port });
+		// Authentication: Verify that the path token exactly matches the expected server ID
+		if (info.req.url !== `/${ETCHER_SERVER_ID}`) {
+			console.error(`Rejected unauthorized connection to ${info.req.url}`);
+			return callback(false, 401, 'Unauthorized');
+		}
+
+		callback(true);
+	},
+});
 
 // hold emit functions
 let emitLog: (message: string) => void | undefined;

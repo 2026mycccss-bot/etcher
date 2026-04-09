@@ -15,6 +15,7 @@
 import WebSocket from 'ws'; // (no types for wrapper, this is expected)
 import { spawn, exec } from 'child_process';
 import * as os from 'os';
+import * as crypto from 'crypto';
 import * as packageJSON from '../../../../package.json';
 import * as permissions from '../../../shared/permissions';
 import * as errors from '../../../shared/errors';
@@ -102,7 +103,7 @@ async function connectToChildProcess(
 
 		console.log(etcherServerId);
 
-		const url = `ws://${etcherServerAddress}:${etcherServerPort}`;
+		const url = `ws://${etcherServerAddress}:${etcherServerPort}/${etcherServerId}`;
 
 		const ws = new WebSocket(url);
 
@@ -193,8 +194,7 @@ async function spawnChildAndConnect({
 	const etcherServerPort =
 		(process.env.ETCHER_SERVER_PORT ?? withPrivileges) ? '3435' : '3434';
 	const etcherServerId =
-		process.env.ETCHER_SERVER_ID ??
-		`etcher-${Math.random().toString(36).substring(7)}`;
+		process.env.ETCHER_SERVER_ID ?? crypto.randomBytes(32).toString('hex');
 
 	console.log(
 		`Starting ${
